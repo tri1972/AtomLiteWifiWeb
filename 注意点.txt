@@ -1,0 +1,182 @@
+'githubへのTortoisegitによるPushについて'
+push時にURLを下記のものと設定する必要がある
+https://tri1972:<ここにpersonal access tokenをいれる>@github.com/tri1972/TsPlanWebClient.git
+
+
+・参考Url
+https://www.tohoho-web.com/ex/angular.html
+
+'Angularのテストモジュール生成'
+$ ng new <モジュール名>
+? Would you like to add Angular routing? (y/N) y
+? Which stylesheet format would you like to use? CSS	# カーソル移動キーで選択してEnter
+
+'Angularのサーバー起動'
+$ cd my-app
+$ ng serve --host 0.0.0.0 --port 8080
+
+'Angularのデバッガ実行'
+デバッガの設定は
+lanunch.jsonで設定している
+
+$ cd my-app
+$ ng serve --host 0.0.0.0 --port 4200
+を実行しておく
+
+'デバッガの自動実行（F5を押すと始まる）'
+については以下のページを参照
+https://qiita.com/amay077/items/62e1eb656fbd730b3dd1
+
+'Angularコンポーネントの追加'
+$ ng generate component <コンポーネント名>
+$ ng generate component <コンポーネント名> --skip-import
+'chromeでlocalhostにアクセスできない場合'
+参考url　https://qiita.com/hiraski/items/a399e5bb303124ff4cab
+
+
+'Angular Maqterial'
+
+インストール方法
+
+使い方
+app.module.ts（それか、このプロジェクトではこのモジュールよりmaterial.module.tsを分離している）
+にimport
+
+
+import { MatInputModule } from '@angular/material/input';
+
+また、Exportも行う
+
+
+  exports:[
+    MatSliderModule,
+
+注意点
+mat-iconを使用する場合、以下のUrlをindex.htmlに貼り付ける必要がある 
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+
+'StaticWebAppのDeployに失敗する場合_その1'
+以下のようなエラーが出る
+
+PHP executable: /tmp/oryx/platforms/php/7.3.27/bin/php
+No 'composer.json' file found; not running 'composer install'.
+Preparing output...
+
+Copying files to destination directory '/bin/staticsites/ss-oryx/app'...
+Done in 0 sec(s).
+
+Removing existing manifest file
+Creating a manifest file...
+Manifest file created.
+
+Done in 1 sec(s).
+
+
+---End of Oryx build logs---
+The app build failed to produce artifact folder: 'dist'. Please ensure this property is configured correctly in your workflow file.
+
+For further information, please visit the Azure Static Web Apps documentation at https://docs.microsoft.com/en-us/azure/static-web-apps/
+If you believe this behavior is unexpected, please raise a GitHub issue at https://github.com/azure/static-web-apps/issues/
+Exiting
+
+上記を見る限り、コード中に.phpファイルを混ぜるとphp実行の為の設定ファイルが必要となり、
+これが原因でDeployに失敗するよう
+よって、必要がなかったphpファイルを削除し対応
+
+
+'StaticWebAppのDeployに失敗する場合_その2'
+ビルド途中で以下のエラーが出る場合
+---Oryx build logs---
+
+
+Operation performed by Microsoft Oryx, https://github.com/Microsoft/Oryx
+You can report issues at https://github.com/Microsoft/Oryx/issues
+
+Oryx Version: 0.2.20210410.1, Commit: e73613ae1fd73c809c00f357f8df91eb984e1158, ReleaseTagName: 20210410.1
+
+Build Operation ID: |yyRm5aPuiv0=.be0b881d_
+Repository Commit : 944e9165fa171e4a61c9f43a497c37f7f401cdcf
+
+Detecting platforms...
+Could not detect any platform in the source directory.
+Error: Could not detect the language from repo.
+
+上記のエラーはコードがあるパスが間違っている
+workflowの.ymlファイルのapp_locationに/srcフォルダがあるパスを記載する
+(.githubフォルダの一つ下がルートとしたパス)
+
+          ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
+          # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
+          app_location: "" # App source code path
+          api_location: "" # Api source code path - optional
+          output_location: "dist/TsPlanWebClient" # Built app content directory - optional
+          ###### End of Repository/Build Configurations ######
+
+
+'StaticWebAppのDeployに失敗する場合_その3'
+---End of Oryx build logs---
+Finished building app with Oryx
+Failed to find a default file in the app artifacts folder (dist). Valid default files: index.html,Index.html.
+If your application contains purely static content, please verify that the variable 'app_location' in your workflow file points to the root of your application.
+If your application requires build steps, please validate that a default file exists in the build output directory.
+
+上記のようなエラーが出る場合は、アプリケーションのルートとなるフォルダのパスが間違っている
+workflowの.ymlファイルのoutput_locationにパスの位置を記述する・・・
+
+のであるが、これが非常にわかりづらい
+手がかりとして
+>ng serve
+を実行すると、ローカルでビルドが実行され。(参考:https://angular.jp/start/start-deployment)
+アプリケーションのルートとなる箇所に'dist/<アプリケーション名>'で出力される。
+このパスをアプリケーションのパスとすればよいのかもしれない
+
+'新しいライブラリを追加した際、Componentによってはエラーが発生する場合'
+ClipboardModuleを追加し、Clipboardを使用するためのpropertyをhtmlでタグに追加した場合下記のようなエラーが発生した
+
+[WDS] Errors while compiling. Reload prevented.
+(webpack)-dev-server/client:150
+src/app/example/example.component.html:1:9 - error NG8002: Can't bind to 'cdkCopyToClipboard' since it isn't a known property of 'button'.
+
+このエラーは新たに作ったComponentのみ発生しており、以前作ったComponentではなぜか発生しない。その相違より以下の点に問題があることを確認した。
+app.module.tsにて、以下のような設定になっていた。
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    MainComponent,
+    LoginComponent,
+    //ExampleComponent,  //←この実装がエラーが発生したComponentでは行われていなかった
+    NavigationBarComponent,
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MaterialModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    ClipboardModule     //←これが新規に使おうとしているライブラリの宣言
+  ],
+  exports:[
+    FormsModule,
+    ReactiveFormsModule
+
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+
+上記の通り、エラーが発生したComponentではdeclarationに設定がなかった。
+おそらくNgModule（Angularにて使用されいるhtmlTemplate）に宣言がないと、そのComponentでは以降のimport、exportで宣言されているライブラリが
+使用できないと考えられる
+
+
+'javascriptPackcageをTypeScriptで使う場合'
+下記はcrypt-jsをインストールした場合
+>npm install crypto-js
+上記で本体をローカルプロジェクトにインストールする
+
+>npm i --save-dev @types/crypto-js
+上記でTypescriptの型情報のインストールを行う
