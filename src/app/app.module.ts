@@ -3,7 +3,7 @@ import { NgModule } from "@angular/core";
 // ルーティングによる画面遷移のために必要なモジュール
 import { RouterModule, Routes } from '@angular/router';
 
-import { HttpClientModule } from '@angular/common/http';
+import {} from '@angular/common/http';
 import { AppComponent } from "./app.component";
 import { ApplicationComponent } from './application/application.component';
 
