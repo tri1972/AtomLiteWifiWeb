@@ -5,12 +5,13 @@ import { RouterModule, Routes } from '@angular/router';
 
 
 @Component({
-  // このコンポーネントを表すタグ
-  selector: 'app-root',
-  // このコンポーネントに対応するHTML（テンプレート）
-  templateUrl: './app.component.html',
-  // このコンポーネントが使用するCSS
-  styleUrls: [ './app.component.css' ]
+    // このコンポーネントを表すタグ
+    selector: 'app-root',
+    // このコンポーネントに対応するHTML（テンプレート）
+    templateUrl: './app.component.html',
+    // このコンポーネントが使用するCSS
+    styleUrls: ['./app.component.css'],
+    standalone: false
 })
 
 export class AppComponent {
