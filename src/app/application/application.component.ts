@@ -10,6 +10,7 @@ export class ApplicationComponent implements OnInit {
 
   constructor() { }
 
+	active = 'top';
   ngOnInit(): void {
   }
 

@@ -6,6 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 import {} from '@angular/common/http';
 import { AppComponent } from "./app.component";
 import { ApplicationComponent } from './application/application.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 // Routing を行う対象のコンポーネントを管理する
 // path にセットした文字列にマッチしたURLが指定されると、対になっているコンポーネントが表示される
@@ -17,12 +18,12 @@ const ROUTE_TABLE: Routes = [
 ]
 @NgModule({
   declarations: [
-    AppComponent, 
     ApplicationComponent
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(ROUTE_TABLE)
+    RouterModule.forRoot(ROUTE_TABLE),
+    NgbModule
   ],
   bootstrap: [AppComponent]
 })
