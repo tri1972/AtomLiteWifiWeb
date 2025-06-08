@@ -2,7 +2,6 @@
 	You should use <code>class="nav-pills"</code> if you need pills and the <code>[orientation]</code> input to change nav
 	orientation
 </p>
-
 <div class="d-flex">
 	<div ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-pills flex-column" orientation="vertical">
 		<ng-container ngbNavItem="top">
@@ -47,5 +46,6 @@
 
 	<div [ngbNavOutlet]="nav" class="ms-4"></div>
 </div>
-
 <pre>Active: {{ active }}</pre>
+
+<router-outlet></router-outlet>
