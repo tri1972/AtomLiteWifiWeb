@@ -1,0 +1,15 @@
+[Angular] Angular アプリの構成をみる
+https://qiita.com/ksh-fthr/items/d040cf8b2d15bd7e507d
+
+Angularのmoduleとstandalone
+https://qiita.com/yusuke_hrsm/items/c1a2483974fd7e3ed025
+
+コンポーネントのインポートと使用
+https://v18.angular.jp/guide/components/importing
+
+超便利な配色ツール「Material Design Color Tool」使い方を徹底解説！
+https://nextribe.co.jp/posts/colortool-howto
+
+angular-materialのSideNavにて各画面をComponentにしたい場合の実装方法を
+AIに聞いてみた結果
+./src/Google Gemini.htm
