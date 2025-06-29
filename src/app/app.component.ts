@@ -1,34 +1,50 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';// ルーティングによる画面遷移のために必要なモジュール
-//import { RouterModule, Routes } from '@angular/router';
-
-//import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import { Component, ViewChild  } from '@angular/core';// ルーティングによる画面遷移のために必要なモジュール
 import { ApplicationComponent } from './application/application.component';
-//import { AppRoutingModule } from './app-routing.module';  //デフォルトでimportされている
-import { RouterModule } from '@angular/router';
+import { RouterModule,RouterOutlet, RouterLink  } from '@angular/router';
+import { Router } from '@angular/router';
 
-import { NavigationComponent } from './navigation/navigation.component';
+
+import { MatSidenav } from '@angular/material/sidenav';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatListModule } from '@angular/material/list';
+
 
 
 @Component({
     // このコンポーネントを表すタグ
     selector: 'app-root',
     imports: [
-      //NgbNavModule,
       RouterModule,//html内で <router-outlet>を使うために必要
-      NavigationComponent
+      MatSidenavModule,
+      MatToolbarModule,
+      MatIconModule,
+      MatButtonModule,
+      MatListModule,
+      RouterOutlet,
+      RouterLink
     ],
     // このコンポーネントに対応するHTML（テンプレート）
     templateUrl: './app.component.html',
     // このコンポーネントが使用するCSS
-    styleUrls: ['./app.component.css'],
+    styleUrls: ['./app.component.scss'],
     standalone: true
 })
 
 export class AppComponent {
-  active = 'top';
-  ApplicationC=ApplicationComponent;
+  title = 'my-sidenav-app';
+
+  @ViewChild('sidenav') sidenav!: MatSidenav;
+
+  constructor(private router: Router) {}
+
+  navigateTo(path: string): void {
+    this.router.navigate([path]);
+  }
 }
 
 

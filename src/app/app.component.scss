@@ -1,0 +1,31 @@
+/* src/app/app.component.scss */
+
+// 変数の定義
+$toolbar-height: 64px;
+$sidenav-width: 200px;
+$content-padding: 20px;
+
+.example-sidenav-container {
+  // ビューポートの高さからツールバーの高さを引く
+  height: calc(100vh - #{$toolbar-height});
+}
+
+.example-sidenav {
+  width: $sidenav-width;
+
+  // ネストされたスタイル
+  mat-nav-list {
+    padding-top: 0; // マテリアルデザインのデフォルトパディングを調整
+
+    .mat-list-item {
+      // &:hover など、疑似クラスもネスト可能
+      &:hover {
+        background-color: #f0f0f0; // ホバー時の背景色
+      }
+    }
+  }
+}
+
+.example-sidenav-content {
+  padding: $content-padding;
+}
