@@ -3,9 +3,10 @@
   "configurations": {
     "app": {
       "context": "http://localhost:4200",
+      "url": "http://localhost:4200",
       "run": "npm start",
       "apiLocation": "",
-      "outputLocation": "dist/angular-basic",
+      "outputLocation": "dist/angular-basic/browser",
       "devserverTimeout": 10000,
       "open": "true"
     }

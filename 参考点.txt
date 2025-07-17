@@ -24,13 +24,36 @@ https://wp-kyoto.net/use-anguler-http-module-from-standalone-component
 
 
 <ローカル上でazureFunctionを実行する方法>
+下記をすべてすっ飛ばして、画面左のRun and Debugにて、SWA：Run AtomliteWifiWebを実行すればOKみたい
+
+
 1.ローカル上のAzureFunctionはアプリケーションルートの./apiに配置する（だったような・・・）
-2.コマンド入力 npm install （特に追加モジュールがなければ二回目以降は不要？）
-3.コマンド入力 npm run build --prod 実行すればローカルのコードがビルドされる
+
+実装で来たら./apiにカレントフォルダを移し次のコマンドをたたけば、アプリ側を実行できる
+
+> func start
+→f5キーで動的API側のデバッグが走るように変更できたので上記コマンドでなくf5キーでもOK
+
+2.別ターミナルウインドウを開き以下を実行していく
+3.コマンド入力 npm install （特に追加モジュールがなければ二回目以降は不要？）
+4.コマンド入力 npm run build --prod 実行すればローカルのコードがビルドされる
+
+5.以下コマンドでweb側を実行する
+ng serve -o
+
+6.さらに別ターミナルウインドウを開き以下を実行する
+swa start http://localhost:4200 --api-location http://localhost:7071
+
+上記でポート4200は静的Webページ側
+ポート7071は動的api側なので、ポート番号は環境に合わせて変更すること
+
+以下が有効かは不明・・・
 4.コマンド入力 swa start dist/angular-basic/browser --api-location api　
 （
 start から続くパスにて静的Webページのビルドデータを見に行っている
 --api-location にてApiのローカル上のパスが決定される。この場合ルート上のapiフォルダを探しに行っている
 ）
+
+
 参考url
 https://learn.microsoft.com/ja-jp/azure/static-web-apps/add-api?tabs=angular
