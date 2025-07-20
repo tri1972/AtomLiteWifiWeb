@@ -12,7 +12,9 @@ import { Component } from '@angular/core';
 export class HomeComponent {
   
   private http:HttpClient;
-  URL='http://localhost:7071/api/HttpTriggerEnvironment'
+  //URL='https://httpbin.org/ip'
+  URL='/api/HttpTriggerEnvironment';
+  //URL='http://localhost:7071/api/HttpTriggerEnvironment'
   message='日本晴れ';
 
   constructor(http:HttpClient) {
@@ -29,16 +31,17 @@ export class HomeComponent {
     var httpObj = this.http.get(this.URL);
     this.message='ボタンが押された';
     //成功時・失敗時の動作を指定する。
-    httpObj.subscribe((resp: any) => this.message = resp.text,this.getError);
-  }
-
-  //http.getが成功した時に走るメソッド
-  getSuccess(response:Response){
-    console.log(response.text());
-  }
-
-  //http.getが失敗した時に走るメソッド
-  getError(error){
-    console.log(error);
+    httpObj.subscribe
+    (
+      (resp: any) => {
+        this.message = resp.message;
+      },
+      (error) => {//http.getが失敗した時に走るメソッド
+        console.error('Error occurred:', error);
+      },
+      () => {//http.getが成功した時に走るメソッド
+        console.log('HTTP request completed');
+      }
+    );
   }
 }
