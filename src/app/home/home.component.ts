@@ -34,7 +34,7 @@ export class HomeComponent {
     httpObj.subscribe
     (
       (resp: any) => {
-        this.message = resp.message;
+        this.message = resp.Body.Temperature;
       },
       (error) => {//http.getが失敗した時に走るメソッド
         console.error('Error occurred:', error);
