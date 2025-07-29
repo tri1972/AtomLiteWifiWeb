@@ -60,7 +60,6 @@ public class HttpTriggerEnvironment
     }
 
     private void test() {
-        
     }
     async private Task<FileInfo> getBlobData()
     {
