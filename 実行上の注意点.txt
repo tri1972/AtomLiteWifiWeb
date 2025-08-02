@@ -16,8 +16,10 @@ Attach to .Net Functionsを実行すればOKみたい
 
 <環境変数からのAzure接続文字列の取得>
 環境変数”AzureConnectionString”にAzure接続文字列を仕込んであるためそこから取得する
-
-
+ローカルはシステムの詳細設定で設定できる
+静的Webページでこれを設定するためにはAzurePortalより、以下の設定項目で
+「AtomLiteWifiWeb ー　設定　ー 環境変数」
+にて設定が必要
 
 
 ＜下記使えるかわからない詳細＞
