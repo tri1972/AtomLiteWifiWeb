@@ -22,17 +22,17 @@ export class HomeComponent {
 
   constructor(http:HttpClient) {
     this.http=http;
-    /*
-    http.get(this.URL)
-      .subscribe((resp: any) => this.message = resp.text);
-    */
+    this.getHttp();
   }
   
 
   getMethod(){
+    this.getHttp();
+  }
+
+  getHttp(){
     //http.getをするためのオブジェクトを生成
     var httpObj = this.http.get(this.URL);
-    this.temperature='ボタンが押された';
     //成功時・失敗時の動作を指定する。
     httpObj.subscribe
     (
@@ -50,5 +50,6 @@ export class HomeComponent {
         console.log('HTTP request completed');
       }
     );
+
   }
 }
