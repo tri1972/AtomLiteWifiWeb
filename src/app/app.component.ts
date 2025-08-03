@@ -36,7 +36,7 @@ import { MatListModule } from '@angular/material/list';
 })
 
 export class AppComponent {
-  title = 'my-sidenav-app';
+  title = 'MyHomeEnvironment';
 
   @ViewChild('sidenav') sidenav!: MatSidenav;
 
