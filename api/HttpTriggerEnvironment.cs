@@ -4,6 +4,7 @@ using System.Drawing.Imaging;
 using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
+using Azure.Storage.Blobs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
@@ -51,7 +52,13 @@ public class HttpTriggerEnvironment
                 }
             }
         }
-        
+        /*
+        var connectionString = System.Environment.GetEnvironmentVariable("AzureConnectionString");
+        var service = new BlobServiceClient(connectionString);
+        var serviceContainer=service.GetBlobContainerClient("environment");
+        await StorageAccountHelper.ListBlobsHierarchicalListing(serviceContainer, "AqualiumIOT/01/2025/08", null);
+        */
+        //StorageAccountHelper.getBlobsName();
         _logger.LogInformation("C# HTTP trigger function processed a request.");
         
         Console.WriteLine(output);
@@ -63,6 +70,6 @@ public class HttpTriggerEnvironment
     }
     async private Task<FileInfo> getBlobData()
     {
-        return await StorageAccountHelper.DownloadAsync("environmentIoT.json");;
+        return await StorageAccountHelper.DownloadAsync("environmentIoT.json"); ;
     }
 }
